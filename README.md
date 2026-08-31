@@ -1,59 +1,40 @@
 # DuoPlayer
 
-DuoPlayer 是一款面向 Windows 的轻量本地视频播放器。界面使用 PySide6/Qt 构建，播放核心使用 mpv，支持多种常见视频编码和封装格式。
+一个适用于 Windows 10 / 11 的多格式视频播放器，支持多窗口、视频旋转、字幕、音轨、倍速和画中画。
 
-## 功能
+## 我只是想使用播放器
+
+请下载下面这个文件：
+
+### [下载 DuoPlayer-Windows-x64.zip](https://github.com/ASDFGHJ0/DuoPlayer/releases/latest/download/DuoPlayer-Windows-x64.zip)
+
+下载后按下面操作：
+
+1. 解压 `DuoPlayer-Windows-x64.zip`。
+2. 打开解压后的 `DuoPlayer` 文件夹。
+3. 双击 `DuoPlayer.exe`。
+4. 把视频拖进窗口，或者按 `Ctrl+O` 选择视频。
+
+不需要安装 Python，也不需要单独安装 mpv。
+
+> 请不要下载 GitHub 自动生成的 `Source code (zip)` 或 `Source code (tar.gz)`。它们是给开发者看的源码，不能直接当播放器运行。
+
+## 主要功能
 
 - 支持 MP4、MKV、MOV、AVI、WebM、FLV、WMV、TS、M2TS 等格式
-- 支持 H.264、H.265/HEVC、AV1、VP8、VP9、MPEG、ProRes 等常见编码
-- 播放、暂停、跳转、前进/后退 10 秒、音量和倍速控制
-- 内置音轨与字幕轨选择、外挂字幕加载
-- 顺时针与逆时针 90° 旋转
-- 播放列表、上一项、下一项和循环播放
-- 画面截图、全屏、窗口置顶
+- 支持 H.264、H.265/HEVC、AV1、VP8、VP9、MPEG、ProRes 等编码
+- 支持同时打开多个独立播放器窗口
+- 播放、暂停、进度跳转、前进/后退 10 秒、音量、静音和倍速
+- 顺时针或逆时针旋转 90°
+- 音轨选择、字幕轨选择和外挂字幕
+- 播放列表、循环播放、截图、全屏和窗口置顶
 - 可移动、可缩放的画中画模式
-- 记忆播放位置、音量、倍速及窗口状态
-- 支持同时启动多个独立播放器进程
-- Per-Monitor V2 高 DPI 适配
+- 记忆播放位置、音量、倍速和窗口状态
+- 支持 Windows 高 DPI 缩放
 
-## 环境要求
+## 常用快捷键
 
-- Windows 10 或 Windows 11
-- Python 3.10 或更高版本
-- [mpv](https://mpv.io/)（默认查找 `C:\Program Files\MPV Player\mpv.exe`）
-
-## 安装
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-安装 mpv 后，确认 `mpv.exe` 位于以下任一位置：
-
-```text
-C:\Program Files\MPV Player\mpv.exe
-%LOCALAPPDATA%\Programs\mpv\mpv.exe
-```
-
-## 启动
-
-双击 `run.bat`，或在项目目录执行：
-
-```powershell
-python app.py
-```
-
-也可以将视频路径作为参数传入：
-
-```powershell
-python app.py "D:\Videos\example.mp4"
-```
-
-每次再次运行 `run.bat` 都会创建一个独立播放器窗口。
-
-## 常用操作
-
-| 操作 | 功能 |
+| 快捷键 | 功能 |
 | --- | --- |
 | `Ctrl+O` | 打开视频 |
 | `Space` | 播放 / 暂停 |
@@ -63,32 +44,40 @@ python app.py "D:\Videos\example.mp4"
 | `F` | 全屏 |
 | `Esc` | 退出全屏 |
 
-播放器按钮提供中文悬停提示，更多功能位于右上角“更多”菜单。
+播放器按钮也提供中文悬停提示。
 
-## 项目结构
+## 给开发者
 
-```text
-DuoPlayer/
-├─ app.py             # Qt 界面与播放器交互
-├─ mpv_backend.py     # mpv JSON IPC 与原生窗口嵌入
-├─ requirements.txt       # 运行依赖
-├─ requirements-dev.txt   # 打包依赖
-├─ DuoPlayer.spec         # Windows 打包配置
-├─ build.bat              # 一键生成独立版
-└─ run.bat                # 源码启动脚本
+运行源码需要 Windows 10/11、Python 3.10+ 和 mpv：
+
+```powershell
+python -m pip install -r requirements.txt
+python app.py
 ```
 
-## 构建 Windows 独立版
-
-先安装运行与构建依赖，并确保 mpv 已安装到 `C:\Program Files\MPV Player`：
+生成 Windows 独立版：
 
 ```powershell
 python -m pip install -r requirements.txt -r requirements-dev.txt
 .\build.bat
 ```
 
-构建结果位于 `dist\DuoPlayer`。整个目录需要一起分发；最终用户无需安装 Python 或 mpv，直接运行 `DuoPlayer.exe` 即可。
+构建结果位于 `dist\DuoPlayer`。构建脚本默认从 `C:\Program Files\MPV Player` 复制 mpv。
 
-## 隐私说明
+## 项目文件
 
-本仓库不包含本地测试视频、字幕、播放历史或个人设置。播放器不会修改源视频文件。
+```text
+DuoPlayer/
+├─ app.py                # 播放器界面与功能
+├─ mpv_backend.py        # mpv 播放核心控制
+├─ assets/               # 应用图标
+├─ DuoPlayer.spec        # Windows 打包配置
+├─ build.bat             # 一键打包
+├─ run.bat               # 从源码启动
+├─ requirements.txt      # 运行依赖
+└─ requirements-dev.txt  # 打包依赖
+```
+
+## 隐私
+
+仓库和发布包不包含测试视频、字幕、播放历史或个人设置。DuoPlayer 不会修改源视频文件。
