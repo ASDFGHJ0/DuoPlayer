@@ -4,6 +4,7 @@ import ctypes
 import json
 import os
 import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -11,7 +12,12 @@ from pathlib import Path
 
 
 def find_mpv() -> str:
+    app_dir = Path(sys.executable).resolve().parent if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent
+    bundle_dir = Path(getattr(sys, '_MEIPASS', app_dir))
     candidates = [
+        bundle_dir / 'mpv' / 'mpv.exe',
+        app_dir / 'mpv' / 'mpv.exe',
+        app_dir / 'mpv.exe',
         Path(r"C:\Program Files\MPV Player\mpv.exe"),
         Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "mpv" / "mpv.exe",
     ]

@@ -71,9 +71,23 @@ python app.py "D:\Videos\example.mp4"
 DuoPlayer/
 ├─ app.py             # Qt 界面与播放器交互
 ├─ mpv_backend.py     # mpv JSON IPC 与原生窗口嵌入
-├─ requirements.txt   # Python 依赖
-└─ run.bat            # Windows 无控制台启动脚本
+├─ requirements.txt       # 运行依赖
+├─ requirements-dev.txt   # 打包依赖
+├─ DuoPlayer.spec         # Windows 打包配置
+├─ build.bat              # 一键生成独立版
+└─ run.bat                # 源码启动脚本
 ```
+
+## 构建 Windows 独立版
+
+先安装运行与构建依赖，并确保 mpv 已安装到 `C:\Program Files\MPV Player`：
+
+```powershell
+python -m pip install -r requirements.txt -r requirements-dev.txt
+.\build.bat
+```
+
+构建结果位于 `dist\DuoPlayer`。整个目录需要一起分发；最终用户无需安装 Python 或 mpv，直接运行 `DuoPlayer.exe` 即可。
 
 ## 隐私说明
 
