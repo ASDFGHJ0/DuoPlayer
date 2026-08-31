@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local media and subtitles
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.flv
+*.wmv
+*.ts
+*.m2ts
+*.mpeg
+*.mpg
+*.m4v
+*.3gp
+*.ogv
+*.srt
+*.ass
+*.ssa
+*.vtt
+
+# Local backups and diagnostics
+*_backup.py
+*_probe.py
+*_probe.json
+*_probe.png
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
